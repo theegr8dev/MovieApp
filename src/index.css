@@ -16,6 +16,7 @@ body {
 }
 #root {
 	height: 100%;
+	position: relative;
 }
 a {
 	text-decoration: none;
@@ -210,6 +211,79 @@ a {
 	justify-content: space-between;
 	color: #111827;
 }
+.footer__links a {
+	color: inherit;
+}
 .footer p {
 	color: #6b7280;
+}
+/* Search List */
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* overflow-x: hidden; */
+}
+.searchList {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 50rem;
+	background-color: #212529;
+	overflow-x: scroll;
+}
+
+.list {
+	list-style: none;
+	padding: 0.8rem 0;
+	/* background-color: #000; */
+	color: #dee2e6;
+}
+
+.list li {
+	position: relative;
+	display: grid;
+	grid-template-columns: 4rem 1fr;
+	grid-template-rows: auto auto;
+	column-gap: 2.4rem;
+	font-size: 1.6rem;
+	align-items: center;
+	padding: 1.6rem 3.2rem;
+	border-bottom: 1px solid #343a40;
+}
+
+.list.searchList li {
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.list.searchList li:hover {
+	background-color: #343a40;
+}
+
+.list img {
+	width: 100%;
+	grid-row: 1 / -1;
+}
+
+.list h3 {
+	font-size: 1.8rem;
+}
+
+.list div {
+	display: flex;
+	align-items: center;
+	gap: 2.4rem;
+}
+
+.list p {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
 }

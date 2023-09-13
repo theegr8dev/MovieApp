@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import logo from '../assets/Logo.png';
-import search from '../assets/SearchIcon.svg';
+import searchIcon from '../assets/SearchIcon.svg';
 import play from '../assets/play.svg';
 import imdb from '../assets/imdb.svg';
 import tomatoe from '../assets/tomatoe.svg';
-function Header() {
+function Header({ search, setSearch }) {
 	return (
 		<header className="header">
 			<nav className="nav">
@@ -11,8 +12,13 @@ function Header() {
 					<img src={logo} alt="Logo" />
 				</div>
 				<div className="search">
-					<input type="text" placeholder="What do you want to watch?" />
-					<img src={search} alt="search-icon" />
+					<input
+						type="text"
+						placeholder="What do you want to watch?"
+						value={search}
+						onChange={e => setSearch(e.target.value)}
+					/>
+					<img src={searchIcon} alt="search-icon" />
 				</div>
 				<div className="menu">
 					<a href="#">Sign in</a>

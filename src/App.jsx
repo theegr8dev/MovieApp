@@ -2,7 +2,8 @@
 import Header from './components/Header';
 import MovieList from './components/MovieList';
 import Footer from './components/Footer';
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
+import SearchList from './components/SearchList';
 const options = {
 	method: 'GET',
 	headers: {
@@ -13,15 +14,23 @@ const options = {
 };
 const initalState = {
 	popularMovie: [],
+	searchMovie: [],
 };
 function reducer(state, action) {
 	switch (action.type) {
-		case 'dataReceived':
+		case 'popularMovie':
 			return { ...state, popularMovie: action.payload };
+		case 'searchMovie':
+			return { ...state, searchMovie: action.payload };
 	}
 }
 function App() {
-	const [{ popularMovie }, dispatch] = useReducer(reducer, initalState);
+	const [{ popularMovie, searchMovie }, dispatch] = useReducer(
+		reducer,
+		initalState
+	);
+	const [search, setSearch] = useState('');
+
 	useEffect(() => {
 		fetch(
 			'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1',
@@ -30,14 +39,28 @@ function App() {
 			.then(res => res.json())
 			.then(data =>
 				dispatch({
-					type: 'dataReceived',
+					type: 'popularMovie',
 					payload: data.results.slice(0, 12),
 				})
 			);
 	}, []);
+	useEffect(() => {
+		fetch(
+			`https://api.themoviedb.org/3/search/movie?query=${search}`,
+			options
+		)
+			.then(res => res.json())
+			.then(data =>
+				dispatch({
+					type: 'searchMovie',
+					payload: data.results,
+				})
+			);
+	}, [search]);
 	return (
 		<>
-			<Header />
+			<Header search={search} setSearch={setSearch} />
+			{searchMovie.length > 0 && <SearchList searchMovies={searchMovie} />}
 			<MovieList popularMovie={popularMovie} />
 			<Footer />
 		</>
