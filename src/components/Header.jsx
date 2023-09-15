@@ -4,7 +4,7 @@ import searchIcon from '../assets/SearchIcon.svg';
 import play from '../assets/play.svg';
 import imdb from '../assets/imdb.svg';
 import tomatoe from '../assets/tomatoe.svg';
-function Header({ search, setSearch }) {
+function Header() {
 	return (
 		<header className="header">
 			<nav className="nav">
@@ -12,12 +12,7 @@ function Header({ search, setSearch }) {
 					<img src={logo} alt="Logo" />
 				</div>
 				<div className="search">
-					<input
-						type="text"
-						placeholder="What do you want to watch?"
-						value={search}
-						onChange={e => setSearch(e.target.value)}
-					/>
+					<input type="text" placeholder="What do you want to watch?" />
 					<img src={searchIcon} alt="search-icon" />
 				</div>
 				<div className="menu">

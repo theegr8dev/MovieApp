@@ -1,9 +1,9 @@
 // const API_KEY = '5fd2c5b6122804b8765573783b027be1';
-import Header from './components/Header';
-import MovieList from './components/MovieList';
-import Footer from './components/Footer';
-import { useEffect, useReducer, useState } from 'react';
-import SearchList from './components/SearchList';
+import { useEffect, useReducer } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DetailMovie from './components/DetailMovie';
+import HomePage from './components/HomePage';
+
 const options = {
 	method: 'GET',
 	headers: {
@@ -13,8 +13,10 @@ const options = {
 	},
 };
 const initalState = {
+	movieId: '',
 	popularMovie: [],
 	searchMovie: [],
+	detailMovie: [],
 };
 function reducer(state, action) {
 	switch (action.type) {
@@ -22,14 +24,17 @@ function reducer(state, action) {
 			return { ...state, popularMovie: action.payload };
 		case 'searchMovie':
 			return { ...state, searchMovie: action.payload };
+		case 'idReceived':
+			return { ...state, movieId: action.id };
+		case 'detailMovie':
+			return { ...state, detailMovie: action.payload };
 	}
 }
 function App() {
-	const [{ popularMovie, searchMovie }, dispatch] = useReducer(
+	const [{ popularMovie, searchMovie, detailMovie }, dispatch] = useReducer(
 		reducer,
 		initalState
 	);
-	const [search, setSearch] = useState('');
 
 	useEffect(() => {
 		fetch(
@@ -44,25 +49,34 @@ function App() {
 				})
 			);
 	}, []);
-	useEffect(() => {
-		fetch(
-			`https://api.themoviedb.org/3/search/movie?query=${search}`,
-			options
-		)
-			.then(res => res.json())
-			.then(data =>
-				dispatch({
-					type: 'searchMovie',
-					payload: data.results,
-				})
-			);
-	}, [search]);
+
 	return (
 		<>
-			<Header search={search} setSearch={setSearch} />
-			{searchMovie.length > 0 && <SearchList searchMovies={searchMovie} />}
-			<MovieList popularMovie={popularMovie} />
-			<Footer />
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<HomePage
+								popularMovie={popularMovie}
+								dispatch={dispatch}
+								searchMovie={searchMovie}
+							/>
+						}
+					/>
+
+					<Route
+						path="movies/:id"
+						element={
+							<DetailMovie
+								options={options}
+								dispatch={dispatch}
+								detailMovie={detailMovie}
+							/>
+						}
+					/>
+				</Routes>
+			</BrowserRouter>
 		</>
 	);
 }

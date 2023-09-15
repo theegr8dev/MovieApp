@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import MovieItem from './MovieItem';
 import chevronRight from '../assets/chevron-right.svg';
-function MovieList({ popularMovie }) {
+function MovieList({ popularMovie, dispatch }) {
 	return (
 		<div className="movie">
 			<div className="movie__title">
@@ -12,11 +12,11 @@ function MovieList({ popularMovie }) {
 				</a>
 			</div>
 
-			<div className="movieList">
+			<ul className="movieList">
 				{popularMovie.map(movie => (
-					<MovieItem movie={movie} key={movie.id} />
+					<MovieItem movie={movie} key={movie.id} dispatch={dispatch} />
 				))}
-			</div>
+			</ul>
 		</div>
 	);
 }
