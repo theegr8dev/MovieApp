@@ -36,6 +36,8 @@ li {
 	align-items: center;
 	justify-content: space-between;
 	padding-block: 1.5rem;
+	z-index: 1;
+	position: relative;
 }
 .search {
 	display: flex;
@@ -314,7 +316,7 @@ li {
 	transform: translate(-50%, -50%);
 }
 .detail__image {
-	width: 70%;
+	width: 60%;
 }
 .detail__image img {
 	width: 100%;
@@ -347,4 +349,10 @@ li {
 	font-size: 2rem;
 	line-height: 3rem;
 	margin-block-start: 2.5rem;
+}
+
+.spi {
+	z-index: 1;
+	position: relative;
+	left: 50%;
 }

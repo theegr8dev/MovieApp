@@ -13,25 +13,16 @@ const options = {
 	},
 };
 const initalState = {
-	movieId: '',
 	popularMovie: [],
-	searchMovie: [],
-	detailMovie: [],
 };
 function reducer(state, action) {
 	switch (action.type) {
 		case 'popularMovie':
 			return { ...state, popularMovie: action.payload };
-		case 'searchMovie':
-			return { ...state, searchMovie: action.payload };
-		case 'idReceived':
-			return { ...state, movieId: action.id };
-		case 'detailMovie':
-			return { ...state, detailMovie: action.payload };
 	}
 }
 function App() {
-	const [{ popularMovie, searchMovie, detailMovie }, dispatch] = useReducer(
+	const [{ popularMovie, detailMovie }, dispatch] = useReducer(
 		reducer,
 		initalState
 	);
@@ -60,7 +51,6 @@ function App() {
 							<HomePage
 								popularMovie={popularMovie}
 								dispatch={dispatch}
-								searchMovie={searchMovie}
 							/>
 						}
 					/>
@@ -68,11 +58,7 @@ function App() {
 					<Route
 						path="movies/:id"
 						element={
-							<DetailMovie
-								options={options}
-								dispatch={dispatch}
-								detailMovie={detailMovie}
-							/>
+							<DetailMovie options={options} detailMovie={detailMovie} />
 						}
 					/>
 				</Routes>
