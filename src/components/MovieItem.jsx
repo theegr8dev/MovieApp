@@ -17,7 +17,7 @@ function MovieItem({ movie }) {
 					<p data-testid="movie-title">
 						<span> {movie.title}</span>
 					</p>
-					<span data-testid="movie-title">
+					<span data-testid="movie-release-date">
 						Released Date: {movie.release_date}
 					</span>
 					<span>Movie Vote: {movie.vote_count}</span>

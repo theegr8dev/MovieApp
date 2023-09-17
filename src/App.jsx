@@ -36,7 +36,7 @@ function App() {
 			.then(data =>
 				dispatch({
 					type: 'popularMovie',
-					payload: data.results.slice(0, 12),
+					payload: data.results.slice(0, 10),
 				})
 			);
 	}, []);

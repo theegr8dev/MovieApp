@@ -77,7 +77,6 @@ function DetailMovie({ options }) {
 									data-testid="movie-runtime"
 									className="detail__content--runtime"
 								>
-									{/* {(runtime / 60).toFixed(2)} */}
 									{`${hour}hr.${minute}m`}
 								</span>
 								<div>
